@@ -1,0 +1,14 @@
+{
+  "mAP50": 0.8186387939771951,
+  "mAP50_95": 0.636538579570089,
+  "per_class_mAP50": {
+    "speedlimit": 0.8894296591685055,
+    "stop": 0.9459253616522695,
+    "crosswalk": 0.7808580857120482,
+    "trafficlight": 0.6583420693759572
+  },
+  "model": "Faster R-CNN MobileNetV3-FPN",
+  "inference_ms_per_image": 36.4,
+  "train_time_hours": 0.435,
+  "params_million": 18.95
+}

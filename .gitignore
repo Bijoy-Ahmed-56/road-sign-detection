@@ -1,0 +1,10 @@
+﻿venv/
+__pycache__/
+*.pyc
+.idea/
+runs/
+results/runs/
+*.pt
+data/*
+!data/splits.csv
+report/*.docx

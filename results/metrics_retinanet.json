@@ -1,0 +1,14 @@
+{
+  "mAP50": 0.8182661403117617,
+  "mAP50_95": 0.6656310843189203,
+  "per_class_mAP50": {
+    "speedlimit": 0.9295649251610784,
+    "stop": 0.9649657272416362,
+    "crosswalk": 0.6897864627868954,
+    "trafficlight": 0.6887474460574371
+  },
+  "model": "RetinaNet ResNet50-FPN",
+  "inference_ms_per_image": 165.85,
+  "train_time_hours": 2.415,
+  "params_million": 32.23
+}

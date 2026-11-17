@@ -1,0 +1,15 @@
+{
+  "model": "YOLOv8n",
+  "test_precision": 0.7664,
+  "test_recall": 0.9088,
+  "test_mAP50": 0.8591,
+  "test_mAP50_95": 0.7045,
+  "per_class_mAP50": {
+    "speedlimit": 0.9668,
+    "stop": 0.925,
+    "crosswalk": 0.8754,
+    "trafficlight": 0.6693
+  },
+  "inference_ms_per_image": 6.89,
+  "train_time_hours": 0.776
+}

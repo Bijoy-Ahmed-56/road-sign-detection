@@ -1,0 +1,14 @@
+{
+  "mAP50": 0.8550705962642298,
+  "mAP50_95": 0.7195314768614878,
+  "per_class_mAP50": {
+    "speedlimit": 0.9691421335028724,
+    "stop": 0.9207920791011731,
+    "crosswalk": 0.8574906670198278,
+    "trafficlight": 0.6728575054330456
+  },
+  "model": "YOLOv8n",
+  "train_time_hours": 0.776,
+  "params_million": 3.13,
+  "inference_ms_per_image": 15.41
+}
