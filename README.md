@@ -1,73 +1,195 @@
 # Road Sign Detection: YOLOv8n vs Faster R-CNN vs RetinaNet
 
-A controlled comparison of three object detectors on a 4-class road sign dataset
-(speed limit, stop, crosswalk, traffic light). All models use the same
-train/val/test split, the same COCO-pretrained initialization, the same
-checkpoint selection rule and one common mAP implementation.
+A comparative study of three deep learning object detection models for road sign detection using a 4-class dataset.
 
-Author: Bijoy Ahmed, Southwest Petroleum University
+This project evaluates **YOLOv8n, Faster R-CNN, and RetinaNet** under a common evaluation framework to compare their detection accuracy and inference efficiency.
 
-## Results (test set, 135 images)
+**Author:** Bijoy Ahmed  
+**Institution:** Southwest Petroleum University
 
-| Model                          | mAP50 | mAP50-95 | Inference (ms) | FPS  | Params (M) |
-| ------------------------------ | ----- | -------- | -------------- | ---- | ---------- |
-| YOLOv8n                        | 0.855 | 0.720    | 15.4           | 64.9 | 3.01       |
-| Faster R-CNN (MobileNetV3-FPN) | 0.819 | 0.637    | 36.4           | 27.5 | 18.95      |
-| RetinaNet (ResNet50-FPN)       | 0.818 | 0.666    | 165.9          | 6.0  | 32.23      |
+## Project Overview
 
-Measured on a laptop NVIDIA MX330 (2 GB). YOLOv8n gives the best
-accuracy-efficiency trade-off. Traffic light is the hardest class for all models.
+The objective of this project is to compare different object detection architectures for road sign detection and analyze their performance in terms of accuracy, inference speed, and model complexity.
+
+The dataset contains four classes:
+
+- Speed Limit
+- Stop
+- Crosswalk
+- Traffic Light
+
+## Models Compared
+
+| Model | Architecture |
+|---|---|
+| YOLOv8n | YOLO |
+| Faster R-CNN | MobileNetV3-FPN |
+| RetinaNet | ResNet50-FPN |
+
+## Experimental Results
+
+The following results were obtained on the test set containing 135 images.
+
+| Model | mAP50 | mAP50-95 | Inference (ms) | FPS | Parameters (M) |
+|---|---:|---:|---:|---:|---:|
+| YOLOv8n | 0.855 | 0.720 | 15.4 | 64.9 | 3.01 |
+| Faster R-CNN | 0.819 | 0.637 | 36.4 | 27.5 | 18.95 |
+| RetinaNet | 0.818 | 0.666 | 165.9 | 6.0 | 32.23 |
+
+**Hardware:** NVIDIA GeForce MX330 (2 GB VRAM)
+
+### Key Findings
+
+- YOLOv8n achieved the highest mAP50 and mAP50-95 among the evaluated models.
+- YOLOv8n provided the fastest inference speed.
+- Faster R-CNN and RetinaNet required more parameters than YOLOv8n.
+- Traffic Light was the most challenging class for all three models.
+
+Based on these experimental results, YOLOv8n provided the best accuracy-efficiency trade-off in this experiment.
 
 ## Dataset
 
-Road Sign Detection dataset (Kaggle): https://www.kaggle.com/datasets/andrewmvd/road-sign-detection
+**Dataset:** [Road Sign Detection Dataset — Kaggle](https://www.kaggle.com/datasets/andrewmvd/road-sign-detection)
 
-877 images, 4 classes. Download it and place it under `data/`.
-The split used in the paper (70/15/15, stratified, seed 42) is in `data/splits.csv`.
+- Total images: 877
+- Number of classes: 4
+- Train/Validation/Test split: 70% / 15% / 15%
+- Split strategy: Stratified
+- Random seed: 42
 
-## Project structure
+The dataset is not included in this repository. Download it from Kaggle and place it inside the `data/` directory according to the expected dataset structure.
 
+The split information is available in `data/splits.csv`.
+
+## Project Structure
+
+```text
+road-sign-detection/
+│
+├── data/
+│   └── splits.csv
+│
+├── report/
+│   └── Road_Sign_Detection_Report.pdf
+│
+├── results/
+│   ├── Metrics and evaluation files
+│   └── Figures and visualizations
+│
+├── src/
+│   ├── check_env.py
+│   ├── prepare_data.py
+│   ├── train_yolo.py
+│   ├── train_frcnn.py
+│   ├── train_retinanet.py
+│   ├── eval_yolo_common.py
+│   ├── compare.py
+│   └── visualize.py
+│
+├── .gitignore
+├── requirements.txt
+└── README.md
 ```
-src/        training, evaluation and plotting scripts
-results/    metrics (json/csv) and figures
-report/     full paper (PDF)
-data/       dataset (not included) and splits.csv
+
+## Installation
+
+### Requirements
+
+- Python 3.13
+- PyTorch 2.7.1
+- torchvision 0.22.1
+- Ultralytics 8.4.213
+- CUDA 11.8 (for the tested GPU configuration)
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Bijoy-Ahmed-56/road-sign-detection.git
+cd road-sign-detection
 ```
 
-## Setup
+### 2. Create a Virtual Environment
 
-```
+```bash
 python -m venv venv
+```
+
+### 3. Activate the Environment
+
+**Windows:**
+
+```bash
 venv\Scripts\activate
+```
+
+### 4. Install Dependencies
+
+```bash
 pip install -r requirements.txt
 ```
 
-Tested with Python 3.13, PyTorch 2.7.1 (CUDA 11.8), torchvision 0.22.1, Ultralytics 8.4.213.
+## How to Run
 
-## How to run
+Run the following commands from the project root directory.
 
-Run all commands from the project root.
+### 1. Check Environment
 
-```
+```bash
 python src/check_env.py
+```
+
+### 2. Prepare Dataset
+
+```bash
 python src/prepare_data.py
+```
+
+### 3. Train Models
+
+```bash
 python src/train_yolo.py
 python src/train_frcnn.py
 python src/train_retinanet.py
+```
+
+### 4. Evaluate and Compare Models
+
+```bash
 python src/eval_yolo_common.py
 python src/compare.py
+```
+
+### 5. Generate Visualizations
+
+```bash
 python src/visualize.py
 ```
 
-## Notes and limitations
+## Experimental Limitations
 
-- Small test set (135 images); minority classes have only 10-14 test images.
-- Single training run, no confidence intervals.
-- Annotation has one box per image, which hurts the traffic light class.
-- YOLOv8n was trained for 50 epochs with strong augmentation; the other two for 30 epochs with flip only.
+The following limitations should be considered when interpreting the results:
 
-Trained weights (.pt files) are not stored in this repository.
+- The test set contains only 135 images.
+- Minority classes have only 10–14 test images.
+- Each model was trained using a single run, without confidence intervals.
+- The annotations contain one bounding box per image, which affects the Traffic Light class.
+- YOLOv8n was trained for 50 epochs with strong augmentation, while Faster R-CNN and RetinaNet were trained for 30 epochs with flip augmentation only.
 
-## Report
+These differences should be considered when interpreting the model comparison.
 
-See `report/Road_Sign_Detection_Report.pdf`.
+## Trained Weights
+
+Trained model weights (`.pt` files) are not included in this repository.
+
+## Project Report
+
+For detailed methodology, experiments, and analysis, see:
+
+`report/Road_Sign_Detection_Report.pdf`
+
+## Author
+
+**Bijoy Ahmed**
+
+- GitHub: [Bijoy-Ahmed-56](https://github.com/Bijoy-Ahmed-56)
+
